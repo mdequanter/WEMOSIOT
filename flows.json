@@ -1,0 +1,156 @@
+[
+    {
+        "id": "f55bb44421ba4b88",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4dce2c89408ad014",
+        "type": "mqtt in",
+        "z": "f55bb44421ba4b88",
+        "name": "",
+        "topic": "sensordata",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "3784a9065b756884",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 300,
+        "wires": [
+            [
+                "7ce3d16a415f1611"
+            ]
+        ]
+    },
+    {
+        "id": "7b51ecd17a7b9ba6",
+        "type": "debug",
+        "z": "f55bb44421ba4b88",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c7dde9d1f1db43b7",
+        "type": "function",
+        "z": "f55bb44421ba4b88",
+        "name": "Function extract temp",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 160,
+        "wires": [
+            [
+                "7b51ecd17a7b9ba6"
+            ]
+        ]
+    },
+    {
+        "id": "7ce3d16a415f1611",
+        "type": "json",
+        "z": "f55bb44421ba4b88",
+        "name": "convert JSON to object",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 180,
+        "wires": [
+            [
+                "c7dde9d1f1db43b7",
+                "525f2430f63e54cf"
+            ]
+        ]
+    },
+    {
+        "id": "525f2430f63e54cf",
+        "type": "function",
+        "z": "f55bb44421ba4b88",
+        "name": "Function extract light",
+        "func": "msg.topic=\"light\"\nmsg.payload = msg.payload.light;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 240,
+        "wires": [
+            [
+                "508ea1613d8340a0"
+            ]
+        ]
+    },
+    {
+        "id": "508ea1613d8340a0",
+        "type": "debug",
+        "z": "f55bb44421ba4b88",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2fc07a3bf904542f",
+        "type": "comment",
+        "z": "f55bb44421ba4b88",
+        "name": "input command :  mosquitto_pub -t \"sensordata\" -m \"{\\\"temperature\\\":\\\"21\\\",\\\"light\\\":\\\"912\\\"}",
+        "info": "",
+        "x": 390,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3784a9065b756884",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]

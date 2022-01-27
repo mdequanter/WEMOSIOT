@@ -1,0 +1,102 @@
+[
+    {
+        "id": "2b4cecd7d29e5120",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_temp",
+        "func": "msg.topic=\"local_temp\"\nmsg.payload = msg.payload.tempc;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 753.0000305175781,
+        "y": 1035.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "2112356f287543df",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_windspeed",
+        "func": "msg.topic=\"local_windspeed\"\nmsg.payload = msg.payload.windspeed;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 763.0000305175781,
+        "y": 1075.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "030caa9e77718176",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_winddirection",
+        "func": "msg.topic=\"local_winddirection\"\nmsg.payload = msg.payload.winddirection;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 773.0000305175781,
+        "y": 1115.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "4cfc0e506f0587e7",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_weather",
+        "func": "msg.topic=\"local_weather\"\nmsg.payload = msg.payload.weather;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 763.0000305175781,
+        "y": 1155.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "05b40b033a874e05",
+        "type": "openweathermap",
+        "z": "e1b28f82ea600c98",
+        "name": "WEATHER EHB KAAI",
+        "wtype": "current",
+        "lon": "4.322829819747444",
+        "lat": "50.84227998732948",
+        "city": "",
+        "country": "",
+        "language": "en",
+        "credentials": {},
+        "x": 403.0000305175781,
+        "y": 1055.0000591278076,
+        "wires": [
+            [
+                "2b4cecd7d29e5120",
+                "2112356f287543df",
+                "030caa9e77718176",
+                "4cfc0e506f0587e7",
+                "ecab14c172b5f6f0"
+            ]
+        ]
+    }
+]

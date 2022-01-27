@@ -1,0 +1,406 @@
+[
+    {
+        "id": "e1b28f82ea600c98",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "303075faa54e395b",
+        "type": "mqtt in",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "topic": "sensordata",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5ae7aaf3acb95cc3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 140,
+        "wires": [
+            [
+                "16654c5fb4a2c0d1"
+            ]
+        ]
+    },
+    {
+        "id": "16654c5fb4a2c0d1",
+        "type": "json",
+        "z": "e1b28f82ea600c98",
+        "name": "convert JSON to object",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 80,
+        "wires": [
+            [
+                "3dd6ac17283ab851",
+                "805098297be31652",
+                "96c9c1c5e9c78729",
+                "de9dc4728f5a3461",
+                "bfceee8fa3948dbc"
+            ]
+        ]
+    },
+    {
+        "id": "bfceee8fa3948dbc",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "name",
+        "func": "msg.topic=\"name\"\nmsg.payload = msg.payload.name;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 180,
+        "wires": [
+            [
+                "2abadd11526ec449"
+            ]
+        ]
+    },
+    {
+        "id": "805098297be31652",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "temperature",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 220,
+        "wires": [
+            [
+                "2abadd11526ec449"
+            ]
+        ]
+    },
+    {
+        "id": "96c9c1c5e9c78729",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "light",
+        "func": "msg.topic=\"light\"\nmsg.payload = msg.payload.light;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 260,
+        "wires": [
+            [
+                "2abadd11526ec449"
+            ]
+        ]
+    },
+    {
+        "id": "de9dc4728f5a3461",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "pressure",
+        "func": "msg.topic=\"pressure\"\nmsg.payload = msg.payload.pressure;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 300,
+        "wires": [
+            [
+                "2abadd11526ec449"
+            ]
+        ]
+    },
+    {
+        "id": "475a9a32455a50a6",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_temp",
+        "func": "msg.topic=\"local_temp\"\nmsg.payload = msg.payload.tempc;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 340,
+        "wires": [
+            [
+                "2abadd11526ec449"
+            ]
+        ]
+    },
+    {
+        "id": "795ad61c6b727850",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_windspeed",
+        "func": "msg.topic=\"local_windspeed\"\nmsg.payload = msg.payload.windspeed;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 380,
+        "wires": [
+            [
+                "2abadd11526ec449"
+            ]
+        ]
+    },
+    {
+        "id": "a294d04da782ebcc",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_winddirection",
+        "func": "msg.topic=\"local_winddirection\"\nmsg.payload = msg.payload.winddirection;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 420,
+        "wires": [
+            [
+                "2abadd11526ec449"
+            ]
+        ]
+    },
+    {
+        "id": "f18ab66598ae2678",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_weather",
+        "func": "msg.topic=\"local_weather\"\nmsg.payload = msg.payload.weather;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 460,
+        "wires": [
+            [
+                "2abadd11526ec449"
+            ]
+        ]
+    },
+    {
+        "id": "3dd6ac17283ab851",
+        "type": "openweathermap",
+        "z": "e1b28f82ea600c98",
+        "name": "WEATHER EHB KAAI",
+        "wtype": "current",
+        "lon": "4.322829819747444",
+        "lat": "50.84227998732948",
+        "city": "",
+        "country": "",
+        "language": "en",
+        "x": 320,
+        "y": 360,
+        "wires": [
+            [
+                "475a9a32455a50a6",
+                "795ad61c6b727850",
+                "a294d04da782ebcc",
+                "f18ab66598ae2678"
+            ]
+        ]
+    },
+    {
+        "id": "2abadd11526ec449",
+        "type": "join",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "8",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 906.9999694824219,
+        "y": 244.99994087219238,
+        "wires": [
+            [
+                "91bf9521c818f3bb"
+            ]
+        ]
+    },
+    {
+        "id": "91bf9521c818f3bb",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "Convert data to SQL query",
+        "func": "msg.topic = 'INSERT INTO sensordata (device, temperature,pressure,light,local_temp,local_windspeed,local_winddirection,local_weather)  VALUES (\"'+msg.payload.name+'\",'+msg.payload.temperature+','+msg.payload.pressure+','+msg.payload.light+','+msg.payload.local_temp+','+msg.payload.local_windspeed+','+msg.payload.local_winddirection+',\"'+msg.payload.local_weather+'\")';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 340,
+        "wires": [
+            [
+                "fa75cade67d52763",
+                "c1c5964afc5e56af"
+            ]
+        ]
+    },
+    {
+        "id": "fa75cade67d52763",
+        "type": "mysql",
+        "z": "e1b28f82ea600c98",
+        "mydb": "f885231195f7a749",
+        "name": "Save to database",
+        "x": 1230,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c1c5964afc5e56af",
+        "type": "debug",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "c71bb2cb24db7e3f",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 11,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "21e4c47e5a2901aa",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 12,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "f64e5729c03d6357",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 13,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "08405ff4ab7fc006",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 14,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "d54c0dc36f5da65b",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 15,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "5ae7aaf3acb95cc3",
+        "type": "mqtt-broker",
+        "name": "Ehbbroker",
+        "broker": "10.3.25.130",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f885231195f7a749",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "sensordata",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "d6a88caded07fbd1",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "eb56923217c6c647",
+        "order": 1,
+        "disp": true,
+        "width": 20,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "eb56923217c6c647",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
