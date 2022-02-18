@@ -1,0 +1,1495 @@
+[
+    {
+        "id": "e1b28f82ea600c98",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "05b40b033a874e05",
+        "type": "openweathermap",
+        "z": "e1b28f82ea600c98",
+        "name": "WEATHER EHB KAAI",
+        "wtype": "current",
+        "lon": "4.322829819747444",
+        "lat": "50.84227998732948",
+        "city": "",
+        "country": "",
+        "language": "en",
+        "x": 403.0000305175781,
+        "y": 1055.0000591278076,
+        "wires": [
+            [
+                "2b4cecd7d29e5120",
+                "2112356f287543df",
+                "030caa9e77718176",
+                "4cfc0e506f0587e7",
+                "ecab14c172b5f6f0"
+            ]
+        ]
+    },
+    {
+        "id": "8d27de95f26ea28b",
+        "type": "mqtt in",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "topic": "sensordata",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "859eda3156e24ad2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 183.00003051757812,
+        "y": 755.0000591278076,
+        "wires": [
+            [
+                "3a4771ef200441ec",
+                "0c9a5dbbfdfa28a1"
+            ]
+        ]
+    },
+    {
+        "id": "3a4771ef200441ec",
+        "type": "json",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 473.0000305175781,
+        "y": 775.0000591278076,
+        "wires": [
+            [
+                "05b40b033a874e05",
+                "cbedd5ec77c0ef40",
+                "efbc6b76e63ac55c",
+                "0e56d68e140c9e8c",
+                "84d7343f8285f44b",
+                "2c6e78842eb00507"
+            ]
+        ]
+    },
+    {
+        "id": "e8914decad98a1de",
+        "type": "join",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "8",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 993.0000305175781,
+        "y": 955.0000591278076,
+        "wires": [
+            [
+                "977f0565f3106a0b",
+                "50a13f606d0e2074"
+            ]
+        ]
+    },
+    {
+        "id": "977f0565f3106a0b",
+        "type": "debug",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1093.0000305175781,
+        "y": 1075.0000591278076,
+        "wires": []
+    },
+    {
+        "id": "cbedd5ec77c0ef40",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "temperature",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 753.0000305175781,
+        "y": 915.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "efbc6b76e63ac55c",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "light",
+        "func": "msg.topic=\"light\"\nmsg.payload = msg.payload.light;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 733.0000305175781,
+        "y": 955.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "0e56d68e140c9e8c",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "pressure",
+        "func": "msg.topic=\"pressure\"\nmsg.payload = msg.payload.pressure;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 743.0000305175781,
+        "y": 995.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "2b4cecd7d29e5120",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_temp",
+        "func": "msg.topic=\"local_temp\"\nmsg.payload = msg.payload.tempc;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 753.0000305175781,
+        "y": 1035.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "2112356f287543df",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_windspeed",
+        "func": "msg.topic=\"local_windspeed\"\nmsg.payload = msg.payload.windspeed;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 763.0000305175781,
+        "y": 1075.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "030caa9e77718176",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_winddirection",
+        "func": "msg.topic=\"local_winddirection\"\nmsg.payload = msg.payload.winddirection;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 773.0000305175781,
+        "y": 1115.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "4cfc0e506f0587e7",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "local_weather",
+        "func": "msg.topic=\"local_weather\"\nmsg.payload = msg.payload.weather;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 763.0000305175781,
+        "y": 1155.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "50a13f606d0e2074",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic = 'INSERT INTO sensordata (device, temperature,pressure,light,local_temp,local_windspeed,local_winddirection,local_weather)  VALUES (\"'+msg.payload.name+'\",'+msg.payload.temperature+','+msg.payload.pressure+','+msg.payload.light+','+msg.payload.local_temp+','+msg.payload.local_windspeed+','+msg.payload.local_winddirection+',\"'+msg.payload.local_weather+'\")';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1183.0000305175781,
+        "y": 995.0000591278076,
+        "wires": [
+            [
+                "fbffc9d009261898",
+                "57ce9a7442b82e93"
+            ]
+        ]
+    },
+    {
+        "id": "fbffc9d009261898",
+        "type": "debug",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1423.0000305175781,
+        "y": 1035.0000591278076,
+        "wires": []
+    },
+    {
+        "id": "84d7343f8285f44b",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "name",
+        "func": "msg.topic=\"name\"\nmsg.payload = msg.payload.name;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 733.0000305175781,
+        "y": 875.0000591278076,
+        "wires": [
+            [
+                "e8914decad98a1de"
+            ]
+        ]
+    },
+    {
+        "id": "57ce9a7442b82e93",
+        "type": "mysql",
+        "z": "e1b28f82ea600c98",
+        "mydb": "3c0541debe7a3642",
+        "name": "",
+        "x": 1423.0000305175781,
+        "y": 955.0000591278076,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ecab14c172b5f6f0",
+        "type": "debug",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 663.0000305175781,
+        "y": 1315.0000591278076,
+        "wires": []
+    },
+    {
+        "id": "2c6e78842eb00507",
+        "type": "switch",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "property": "payload.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "iotbigdata1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata3",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata4",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata5",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata6",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata7",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata8",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata9",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iotbigdata10",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 10,
+        "x": 573.0000305175781,
+        "y": 215.00005912780762,
+        "wires": [
+            [
+                "55adbf8504b30978",
+                "272d78ecb6de0508"
+            ],
+            [
+                "7443ca85701436fc",
+                "4b6e617e0cce5ede"
+            ],
+            [
+                "41c7510be7e2d2e9",
+                "a08b7b78a1bbaa26"
+            ],
+            [
+                "1aac456b638f8e35",
+                "c0cf1b1e8ec642ac"
+            ],
+            [
+                "48953d9b625b0611",
+                "779a6d39a9e33877"
+            ],
+            [
+                "095b90340560e654",
+                "d2789f985e970e4d"
+            ],
+            [
+                "e063ab81f012db4a",
+                "4a50c3e1994d7295"
+            ],
+            [
+                "dafd39cd5337686a",
+                "0cfdfde194ff2d0a"
+            ],
+            [
+                "0b93ddfe615e1e75",
+                "5e2490b0016e8d0c"
+            ],
+            [
+                "4f4a5a976771c283",
+                "cd17b37bbeb3947a"
+            ]
+        ]
+    },
+    {
+        "id": "55adbf8504b30978",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 1,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT1",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "7443ca85701436fc",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 2,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT2",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "41c7510be7e2d2e9",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 3,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT3",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "1aac456b638f8e35",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 4,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT4",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "48953d9b625b0611",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 5,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT5",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "095b90340560e654",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 6,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT6",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "e063ab81f012db4a",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 7,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT7",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "dafd39cd5337686a",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 8,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT8",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "0b93ddfe615e1e75",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 9,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT9",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4f4a5a976771c283",
+        "type": "ui_gauge",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 10,
+        "width": 5,
+        "height": 5,
+        "gtype": "gage",
+        "title": "BigData&IoT10",
+        "label": "degrees",
+        "format": "{{msg.payload.temperature}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 900,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "142f6fa6b6e545cb",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 16,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT1",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "272d78ecb6de0508",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 420,
+        "wires": [
+            [
+                "142f6fa6b6e545cb"
+            ]
+        ]
+    },
+    {
+        "id": "4b6e617e0cce5ede",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 460,
+        "wires": [
+            [
+                "780f42ff30176ced"
+            ]
+        ]
+    },
+    {
+        "id": "780f42ff30176ced",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 17,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT2",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a08b7b78a1bbaa26",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 876.9999694824219,
+        "y": 504.9999408721924,
+        "wires": [
+            [
+                "e1039c3294d680e3"
+            ]
+        ]
+    },
+    {
+        "id": "e1039c3294d680e3",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 18,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT3",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1036.9999694824219,
+        "y": 504.9999408721924,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c0cf1b1e8ec642ac",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 876.9999694824219,
+        "y": 544.9999408721924,
+        "wires": [
+            [
+                "6d5fb8f352f03a6f"
+            ]
+        ]
+    },
+    {
+        "id": "6d5fb8f352f03a6f",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 19,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT4",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1036.9999694824219,
+        "y": 544.9999408721924,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "779a6d39a9e33877",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 580,
+        "wires": [
+            [
+                "cf23d4de6adbacec"
+            ]
+        ]
+    },
+    {
+        "id": "cf23d4de6adbacec",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 20,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT5",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d2789f985e970e4d",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 620,
+        "wires": [
+            [
+                "5ebf36ce508fc33f"
+            ]
+        ]
+    },
+    {
+        "id": "5ebf36ce508fc33f",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 21,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT6",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4a50c3e1994d7295",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 660,
+        "wires": [
+            [
+                "b84a08196a474b2e"
+            ]
+        ]
+    },
+    {
+        "id": "b84a08196a474b2e",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 22,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT7",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0cfdfde194ff2d0a",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 700,
+        "wires": [
+            [
+                "465ad798a14cacd9"
+            ]
+        ]
+    },
+    {
+        "id": "465ad798a14cacd9",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 23,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT8",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e2490b0016e8d0c",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 740,
+        "wires": [
+            [
+                "072712f841e80903"
+            ]
+        ]
+    },
+    {
+        "id": "072712f841e80903",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 24,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT9",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cd17b37bbeb3947a",
+        "type": "function",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "func": "msg.topic=\"temperature\"\nmsg.payload = msg.payload.temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 780,
+        "wires": [
+            [
+                "96f566638ad6eb34"
+            ]
+        ]
+    },
+    {
+        "id": "96f566638ad6eb34",
+        "type": "ui_chart",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "group": "d6a88caded07fbd1",
+        "order": 25,
+        "width": 0,
+        "height": 0,
+        "label": "BigData&IoT10",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1040,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0c9a5dbbfdfa28a1",
+        "type": "mqtt out",
+        "z": "e1b28f82ea600c98",
+        "name": "",
+        "topic": "sensordata2",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8b926acaf7365f4d",
+        "x": 380,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c71bb2cb24db7e3f",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 11,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "21e4c47e5a2901aa",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 12,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "f64e5729c03d6357",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 13,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "08405ff4ab7fc006",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 14,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "d54c0dc36f5da65b",
+        "type": "ui_spacer",
+        "z": "e1b28f82ea600c98",
+        "name": "spacer",
+        "group": "d6a88caded07fbd1",
+        "order": 15,
+        "width": 10,
+        "height": 1
+    },
+    {
+        "id": "859eda3156e24ad2",
+        "type": "mqtt-broker",
+        "name": "AI",
+        "broker": "10.3.25.130",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "3c0541debe7a3642",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "ailabo_sensors",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "d6a88caded07fbd1",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "eb56923217c6c647",
+        "order": 1,
+        "disp": true,
+        "width": 20,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8b926acaf7365f4d",
+        "type": "mqtt-broker",
+        "name": "external - emq",
+        "broker": "broker.emqx.io",
+        "port": "1883",
+        "clientid": "iotlabserver",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": "",
+        "credentials": {}
+    },
+    {
+        "id": "eb56923217c6c647",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
