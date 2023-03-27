@@ -19,9 +19,9 @@ Adafruit_BMP280 bmp; // I2C
 //DHT dht(DHTPIN, DHTTYPE);
 
 EspMQTTClient client(
-  "XXX_SSID_XXX",
-  "XXX_PASSWORD_XXX",
-  "XXX_IP_BROKER_XXX",  // MQTT Broker server ip
+  "ssid",
+  "password",
+  "10.3.25.130",  // MQTT Broker server ip
   "",   // Can be omitted if not needed
   "",   // Can be omitted if not needed
   "iotbigdataDemo1",     // Client name that uniquely identify your device
@@ -30,7 +30,7 @@ EspMQTTClient client(
 
 String temperature;
 String humidity;
-String light;
+String battery;
 String pressure;
 String sensordata;
 
@@ -93,7 +93,7 @@ void onConnectionEstablished()
     client.subscribe("pressure1", [](const String & topic, const String & payload) {
     });
     
-  client.publish("online", "iotbigdata10 wake up");
+  client.publish("online", "iotbigdata9 wake up");
 
 
   
@@ -116,14 +116,31 @@ void onConnectionEstablished()
   Serial.print(" *C ");
 
   temperature = String(t,2);
-  pressure = String(p,2);
-  int sensorValue = analogRead(A0);   // read the input on analog pin 0
-  Serial.println(sensorValue);
-  light = String(sensorValue);
 
-  client.publish("online", "iotbigdata10 to deep sleep");
+  if (p > 0){
+    p=p/100;
+  } else {
+    p=0;
+  }
+
   
-  sensordata = "{\"name\":\"iotbigdata10\",\"light\":\""+light+"\",\"temperature\":\""+temperature+"\",\"pressure\":\""+pressure+"\"}";
+  pressure = String(p,2);
+  float sensorValue = analogRead(A0);   // read the input on analog pin 0
+  Serial.println(sensorValue);
+  if (sensorValue > 1000){
+    sensorValue = 1000;
+  }
+  
+  if (sensorValue > 0){
+    sensorValue=sensorValue/10;
+  } else {
+    sensorValue=0;
+  }
+  battery = String(sensorValue);
+
+  client.publish("online", "iotbigdata20 to deep sleep");
+  
+  sensordata = "{\"name\":\"iotbigdata1\",\"battery\":\""+battery+"\",\"temperature\":\""+temperature+"\",\"pressure\":\""+pressure+"\"}";
 
   client.publish("sensordata",sensordata);
 
