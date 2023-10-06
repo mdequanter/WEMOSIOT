@@ -45,10 +45,8 @@ void setup() {
 
   WiFi.begin(ssid, pass);
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
+
+
 
   Serial.println("");
   Serial.println("WiFi connected");
@@ -56,6 +54,16 @@ void setup() {
   Serial.println("Device Started...");
 
   client.setServer(mqtt_server, 1883);
+
+  int counter = 0;
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    counter++;
+    Serial.println(counter);
+    if (counter > 20) {
+      setupWifi();
+    }
+  }
 
 
   while (!client.connected()) {
@@ -143,7 +151,7 @@ else {
   delay(1000);
 
   Serial.println("going to deepsleep");
-  ESP.deepSleep(10e6); 
+  ESP.deepSleep(1800e6); 
 
 
 }
