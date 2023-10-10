@@ -43,6 +43,9 @@ void setup() {
   EEPROM.get(SSID_SIZE+PASS_SIZE+MQTT_SIZE+TOPIC_SIZE, location);
   EEPROM.get(SSID_SIZE+PASS_SIZE+MQTT_SIZE+TOPIC_SIZE+LOC_SIZE, device_name);
 
+
+  readSettings();
+
   WiFi.begin(ssid, pass);
 
 
@@ -59,23 +62,33 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     counter++;
-    Serial.println(counter);
-    if (counter > 20) {
-      setupWifi();
+    Serial.print(".");
+    if (counter > 30) {
+        setupWifi();
+        //Serial.println("Not connected, going to deepsleep for 1 hour");
+        //ESP.deepSleep(3600e6); 
     }
   }
 
 
+  int clientCounter = 0;
   while (!client.connected()) {
+      clientCounter++;
       String client_id = "esp8266-client-";
       client_id += String(WiFi.macAddress());
       Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
       if (client.connect(client_id.c_str(), "", "")) {
+
           Serial.println("Public emqx mqtt broker connected");
       } else {
           Serial.print("failed with state ");
           Serial.print(client.state());
           delay(2000);
+          if (clientCounter >= 20) {
+          setupWifi();
+          Serial.println("Not connected, going to deepsleep for 1 hour");
+          ESP.deepSleep(3600e6);             
+          }
       }
   }
 
@@ -112,6 +125,7 @@ void loop() {
   pressure = String(p,2);
 
   float battery = analogRead(A0);   // read the input on analog pin 0
+  float voltage = map(battery, 0, 761, 0, 480); 
   if (battery > 1000){
     battery = 1000;
   }
@@ -119,10 +133,12 @@ void loop() {
 // Create JSON object
   StaticJsonDocument<200> doc;
 
+  doc["location"] = location;
   doc["device_name"] = device_name;
-  doc["battery_voltage"] = battery;
+  doc["battery_voltage"] = voltage;
   doc["temperature"] = temperature;
   doc["pressure"] = pressure;
+
 
   // Serialize JSON to string
   char json[256];
@@ -148,10 +164,19 @@ else {
   Serial.println("Publish failed");
 }
 
-  delay(1000);
 
-  Serial.println("going to deepsleep");
-  ESP.deepSleep(1800e6); 
+for (int i = 0 ; i<=10; i++) {
+    Serial.println("press key to enter setup.");
+    if (Serial.available() > 0) {
+      String cmd = Serial.readStringUntil('\n');
+      Serial.println("Entering setup.");
+      setupWifi();
+    }
+    delay(1000);
+  }
+
+  Serial.println("going to deepsleep for 1 hour");
+  ESP.deepSleep(3600e6); 
 
 
 }
@@ -164,16 +189,16 @@ void setupWifi() {
   Serial.println("Enter Password:");
   readSerial(pass, PASS_SIZE); 
 
-  Serial.println("Enter MQTT Server:");
+  Serial.println("Enter MQTT Server, ex. broker.emqx.io:");
   readSerial(mqtt_server, MQTT_SIZE);
   
-  Serial.println("Enter MQTT Topic:");
+  Serial.println("Enter MQTT Topic, ex. ehbIoT/sensordata :");
   readSerial(mqtt_topic, TOPIC_SIZE);
 
-  Serial.println("Enter Location:");
+  Serial.println("Enter Location, ex. ailabo:");
   readSerial(location, LOC_SIZE);
    
-  Serial.println("Enter Device Name:");
+  Serial.println("Enter Device Name, ex. BME1:");
   readSerial(device_name, DEVICE_SIZE);
 
   EEPROM.put(0, ssid);
@@ -209,6 +234,7 @@ void readSettings() {
 
   Serial.print("Password: ");
   Serial.println("xxxxxxxx");  
+
 
   Serial.print("MQTT Server: ");
   Serial.println(mqtt_server);
